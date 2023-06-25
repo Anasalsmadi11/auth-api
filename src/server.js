@@ -23,6 +23,10 @@ app.use(authRoutes);
 app.use('/api/v1', v1Routes);
 app.use('/api/v2', v2Routes);
 
+app.get("/",(req,res)=>{
+  res.send(`welcome home`)
+})
+
 app.use('*', notFoundHandler);
 app.use(errorHandler);
 
