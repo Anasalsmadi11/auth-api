@@ -12,7 +12,21 @@ const errorHandler = require('./error-handlers/500.js');
 const logger = require('./middleware/logger.js');
 const v1Routes = require('./routes/v1.js');
 const v2Routes = require('./routes/v2.js');
+app.use((req, res, next) => {
+  // dont forget to add link of todo list
+  const allowedOrigins = ['http://localhost:5173/', 'https://vvlvtj-5173.csb.app/' , 'https://3y65ff-5173.csb.app/' , 'https://deft-unicorn-5e4144.netlify.app/'];
+  const origin = req.headers.origin;
+
+  if (allowedOrigins.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+  }
+
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  next();
+});
 app.use(express.json());
+
 
 app.use(logger);
 app.use(cors());
